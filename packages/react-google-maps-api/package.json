@@ -1,7 +1,7 @@
 {
-  "name": "@react-google-maps/api",
+  "name": "@fcse/react-google-maps-api",
   "sideEffects": false,
-  "version": "1.9.5",
+  "version": "1.9.7",
   "description": "React.js Google Maps API integration",
   "license": "MIT",
   "author": {
@@ -15,6 +15,9 @@
     "Ivan Konev <ivankonev@gmail.com> (https://github.com/ivankonev)",
     "Daniel K. <klenicak@gmail.com> (https://github.com/fredyc)"
   ],
+  "publishConfig": {
+    "registry": "http://npm.k8s.fcse.io"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/JustFly1984/react-google-maps-api.git",
@@ -24,9 +27,6 @@
     "url": "https://github.com/JustFly1984/react-google-maps-api/issues"
   },
   "homepage": "https://react-google-maps-api-docs.netlify.app",
-  "publishConfig": {
-    "access": "public"
-  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "unpkg": "dist/reactgooglemapsapi.umd.production.min.js",

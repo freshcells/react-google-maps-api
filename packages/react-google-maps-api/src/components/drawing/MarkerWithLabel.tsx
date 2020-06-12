@@ -1,13 +1,15 @@
-import React, {CSSProperties} from 'react'
+import React, {CSSProperties, ReactElement} from 'react'
 import ReactDOM from 'react-dom'
 import Marker, {MarkerProps, updaterMap} from "./Marker"
 import markerWithLabelFactory from 'markerwithlabel'
+import {HasMarkerAnchor} from "../../types";
 
 export interface MarkerWithLabelProps extends MarkerProps {
   labelAnchor?: google.maps.Point
   labelClass?: string
   labelStyle?: CSSProperties
   labelVisible?: boolean
+  labelContent: ReactElement
 }
 
 const markerWithLabelUpdaterMap = {
@@ -27,11 +29,11 @@ const markerWithLabelUpdaterMap = {
 }
 
 
-class MarkerWithLabel extends Marker<MarkerWithLabelProps> {
+class CompMarkerWithLabel extends Marker<MarkerWithLabelProps> {
 
   containerElement: HTMLDivElement | null = null
 
-  createMarker = (markerOptions: google.maps.MarkerOptions) => {
+  createMarker = (markerOptions: google.maps.MarkerOptions): google.maps.Marker => {
     const MarkerWithLabel = markerWithLabelFactory(google.maps)
     this.containerElement = document.createElement('div')
     const marker = new MarkerWithLabel(markerOptions)
@@ -42,7 +44,7 @@ class MarkerWithLabel extends Marker<MarkerWithLabelProps> {
   createUpdaterMap = () => markerWithLabelUpdaterMap
 
   componentWillUnmount() {
-    super.componentWillUnmount();
+    super.componentWillUnmount()
     this.containerElement = null
   }
 
@@ -53,7 +55,8 @@ class MarkerWithLabel extends Marker<MarkerWithLabelProps> {
         {element}
         {this.containerElement &&
         ReactDOM.createPortal(
-          this.props.children,
+          React.cloneElement(this.props.labelContent as React.ReactElement<HasMarkerAnchor>,
+            { anchor: this.state.marker }),
           this.containerElement
         )}
       </>
@@ -62,4 +65,4 @@ class MarkerWithLabel extends Marker<MarkerWithLabelProps> {
 }
 
 
-export default MarkerWithLabel
+export default CompMarkerWithLabel

@@ -181,7 +181,7 @@ export class Marker<P extends MarkerProps> extends React.PureComponent<P, Marker
 
   createUpdaterMap = () => updaterMap
 
-  createMarker = (markerOptions: google.maps.MarkerOptions) => {
+  createMarker = (markerOptions: google.maps.MarkerOptions): google.maps.Marker => {
     return new google.maps.Marker(markerOptions)
   }
 
